@@ -1,0 +1,7 @@
+.productDescription{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(110, 110, 110);
+}
