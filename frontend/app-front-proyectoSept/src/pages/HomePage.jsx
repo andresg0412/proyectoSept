@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ListComponent from '../components/List/ListComponent';
+import '../syles/global.css';
 
 const HomePage = () => {
     return (
         <>
-            <h1>Home Page</h1>
-            <ListComponent />
-            <Link to="/product">Product Page</Link>
+            <div className="homePage">
+                <h1>Escoge tu producto</h1>
+                <ListComponent />
+            </div>
         </>
     );
 };
