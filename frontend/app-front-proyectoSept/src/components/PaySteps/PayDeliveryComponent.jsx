@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ButtonComponent from '../Button/ButtonComponent';
 import { useDispatch } from 'react-redux';
 import { selectDeliveryInfo } from '../../redux/reducers/DeliveryInfoReducer';
+import { useSelector } from 'react-redux';
 
 const PayDeliveryComponent = ({ nextStep, prevStep }) => {
     const dispatch = useDispatch();
@@ -12,7 +13,16 @@ const PayDeliveryComponent = ({ nextStep, prevStep }) => {
         city: '',
     });
     const [errors, setErrors] = useState({});
+    const selectedDeliveryInfo = useSelector((state) => state.deliveryInfo.selectedDeliveryInfo);
+
+    useEffect(() => {
+        if (selectedDeliveryInfo) {
+            setCardDelivery(selectedDeliveryInfo);
+        }
+    }, [ selectedDeliveryInfo ]);
+
     const handleClick = () => {
+        sessionStorage.setItem('cardDelivery', JSON.stringify(cardDelivery));
         dispatch(selectDeliveryInfo(cardDelivery));
         nextStep();
     }
@@ -27,6 +37,7 @@ const PayDeliveryComponent = ({ nextStep, prevStep }) => {
                             type="text"
                             name="name"
                             placeholder="Name"
+                            value={cardDelivery.name}
                             onChange={(e) => setCardDelivery({ ...cardDelivery, name: e.target.value })}
                         />
                         {errors.name && <p className="error">{errors.name}</p>}
@@ -37,6 +48,7 @@ const PayDeliveryComponent = ({ nextStep, prevStep }) => {
                             type="text"
                             name="phone"
                             placeholder="Phone"
+                            value={cardDelivery.phone}
                             onChange={(e) => setCardDelivery({ ...cardDelivery, phone: e.target.value })}
                         />
                         {errors.phone && <p className="error">{errors.phone}</p>}
@@ -47,6 +59,7 @@ const PayDeliveryComponent = ({ nextStep, prevStep }) => {
                             type="text"
                             name="address"
                             placeholder="Address"
+                            value={cardDelivery.address}
                             onChange={(e) => setCardDelivery({ ...cardDelivery, address: e.target.value })}
                         />
                         {errors.address && <p className="error">{errors.address}</p>}
@@ -58,6 +71,7 @@ const PayDeliveryComponent = ({ nextStep, prevStep }) => {
                             type="text"
                             name="city"
                             placeholder="City"
+                            value={cardDelivery.city}
                             onChange={(e) => setCardDelivery({ ...cardDelivery, city: e.target.value })}
                         />
                         {errors.city && <p className="error">{errors.city}</p>}

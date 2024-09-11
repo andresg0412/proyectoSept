@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ButtonComponent from '../Button/ButtonComponent';
 import { validateCardInfo, getCardType, formatCardNumber } from '../../utils/validations';
 import { useDispatch } from 'react-redux';
 import { selectPayInfo } from '../../redux/reducers/PayInfoReducer';
+import { useSelector } from 'react-redux';
+import { useSavePayInfo } from '../../hooks/useSavePayInfo';
 
 const PayCardComponent = ({ nextStep }) => {
     const dispatch = useDispatch();
@@ -14,6 +16,14 @@ const PayCardComponent = ({ nextStep }) => {
     });
     const [errors, setErrors] = useState({});
     const [cardType, setCardType] = useState('');
+    const selectedPayInfo = useSelector((state) => state.payInfo.selectedPayInfo);
+    const savePaymentDetails = useSavePayInfo(cardInfo);
+
+    useEffect(() => {
+        if (selectedPayInfo) {
+            setCardInfo(selectedPayInfo);
+        }
+    }, [ selectedPayInfo ]);
 
     // FUNCIONES DE MANEJO DE CAMPOS
     const handleChange = (e) => {
@@ -46,7 +56,7 @@ const PayCardComponent = ({ nextStep }) => {
         const errors = validateCardInfo(cardInfo);
         setErrors(errors);
         if (Object.keys(errors).length === 0) {
-            dispatch(selectPayInfo(cardInfo));
+            savePaymentDetails();
             nextStep();
         }
     }

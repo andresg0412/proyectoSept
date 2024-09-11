@@ -17,6 +17,7 @@ const ListComponent = () => {
 
     //FUNCION PARA SELECCIONAR PRODUCTO
     const handleClick = (product) => {
+        sessionStorage.setItem('product', JSON.stringify(product));
         dispatch(selectProduct(product));
     }
 

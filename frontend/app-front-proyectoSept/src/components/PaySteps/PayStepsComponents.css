@@ -1,0 +1,13 @@
+.paySummary{
+    display: flex;
+    flex-direction: column;
+}
+.paySummary h3, h4, p{
+    margin: 0.2em;
+}
+.payInfo{
+}
+.deliveryInfo{
+}
+.buttonsControllers{
+}

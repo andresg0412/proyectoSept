@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonComponent from '../Button/ButtonComponent';
 import './ModalPayComponent.css';
 import PayCardComponent from '../PaySteps/PayCardComponent';
 import PaySummaryComponent from '../PaySteps/PaySummaryComponent';
 import PayDeliveryComponent from '../PaySteps/PayDeliveryComponent';
+import { useDispatch } from 'react-redux';
+import { selectPayInfo } from '../../redux/reducers/PayInfoReducer';
 
 
 const ModalPayComponent = ({ isOpen, onClose, openModalAlert }) => {
+    const dispatch = useDispatch();
     const [currentStep, setCurrentStep] = useState(1);
 
     //NAVEGACIÓN ENTRE STEPS
@@ -30,6 +33,18 @@ const ModalPayComponent = ({ isOpen, onClose, openModalAlert }) => {
                 return null;
         }
     };
+    useEffect(() => {
+        const cardDelivery = sessionStorage.getItem('cardDelivery');
+        const cardInfo = sessionStorage.getItem('cardInfo');
+
+        if (cardDelivery && cardInfo) {
+            dispatch(selectPayInfo(JSON.parse(cardInfo)));
+            setCurrentStep(2);
+        } else if (cardInfo) {
+            setCurrentStep(1);
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
     return (
         <>

@@ -11,7 +11,13 @@ const payInfoSlice = createSlice({
         selectPayInfo: (state, action) => {
             state.selectedPayInfo = action.payload;
         },
+        updatePayInfo: (state, action) => {
+            state.selectedPayInfo = action.payload;
+        },
+        clearPauyInfo: (state) => {
+            state.selectedPayInfo = null;
+        },
     },
 });
-export const { selectPayInfo } = payInfoSlice.actions;
+export const { selectPayInfo, clearPauyInfo } = payInfoSlice.actions;
 export default payInfoSlice.reducer;

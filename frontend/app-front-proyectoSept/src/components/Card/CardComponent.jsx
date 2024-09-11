@@ -7,7 +7,7 @@ const CardComponent = ({ product, onClick }) => {
     return (
         <>
             <li key={product.id} className="cardComponent">
-                <Link to={`/product/${product.id}`} onClick={onClick}>
+                <Link to={"/product"} onClick={onClick}>
                     <p>{product.name}</p>
                     <p>{product.price}</p>
                 </Link>
