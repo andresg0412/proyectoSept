@@ -3,26 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
-import { useDispatch } from 'react-redux';
-import { selectPayInfo } from './redux/reducers/PayInfoReducer';
-import { selectDeliveryInfo } from './redux/reducers/DeliveryInfoReducer';
-import { selectProduct } from './redux/reducers/ProductReducer';
 import { useRetrievePaymentData } from './hooks/usePayInfo';
+import { useDeliveryInfo } from './hooks/useDeliveryInfo';
+import { useRetrieveProductSelected } from './hooks/useProductSelected';
 
 function App() {
-  const dispatch = useDispatch();
   const retrievePaymentData = useRetrievePaymentData();
+  const deliveryInfo = useDeliveryInfo();
+  const productSelected = useRetrieveProductSelected();
+  
   useEffect(() => {
     retrievePaymentData();
-    const storeCardDelivery = sessionStorage.getItem('cardDelivery');
-    const storedProduct = sessionStorage.getItem('product');
-    if (storeCardDelivery) {
-      dispatch(selectDeliveryInfo(JSON.parse(storeCardDelivery)));
-    }
-    if (storedProduct) {
-      dispatch(selectProduct(JSON.parse(storedProduct)));
-    }
-  }, [ dispatch, retrievePaymentData ]);
+    deliveryInfo();
+    productSelected();
+  }, [ retrievePaymentData, deliveryInfo, productSelected ]);
 
   return (
     <>

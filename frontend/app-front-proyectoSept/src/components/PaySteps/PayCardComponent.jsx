@@ -43,10 +43,10 @@ const PayCardComponent = ({ nextStep }) => {
     };
 
     const handleExpiryDateChange = (e) => {
-        let value = e.target.value.replace(/\D/g, ''); // Remueve caracteres no numéricos
+        let value = e.target.value.replace(/\D/g, '');
 
         if (value.length > 1) {
-            value = `${value.slice(0, 2)}/${value.slice(2, 4)}`; // Inserta el '/'
+            value = `${value.slice(0, 2)}/${value.slice(2, 4)}`;
         }
 
         setCardInfo({ ...cardInfo, expiryDate: value });
