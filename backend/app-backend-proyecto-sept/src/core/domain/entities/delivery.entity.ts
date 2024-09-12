@@ -20,8 +20,8 @@ export class Delivery {
     transaction: Transaction;
 
     @ManyToOne(() => Client, (client) => client.delivery)
-    client: Client
+    client: Client;
 
     @ManyToOne(() => Product, (product) => product.delivery)
-    product: Product
+    product: Product;
 }

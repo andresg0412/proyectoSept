@@ -27,8 +27,8 @@ export class Client {
     updatedAt: Date;
 
     @OneToMany(() => Transaction, (transaction) => transaction.client)
-    transaction: Transaction[]
+    transaction: Transaction[];
 
     @OneToMany(() => Delivery, (delivery) => delivery.client)
-    delivery: Delivery[]
+    delivery: Delivery[];
 }
